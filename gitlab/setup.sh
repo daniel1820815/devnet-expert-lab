@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-gitlab_host="http://192.168.0.21"
+gitlab_host="http://192.168.11.21"
 gitlab_wait_time=25
 # prints colored text
 success () {
