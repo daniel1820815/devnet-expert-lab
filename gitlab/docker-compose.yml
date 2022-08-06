@@ -1,38 +1,38 @@
 version: '3.4'
 
 services:
- gitlab:
-  restart: always
-  image: gitlab/gitlab-ce
-  hostname: gitlab
-  volumes:
-   - gitlab-config:/etc/gitlab
-   - gitlab-data:/var/opt/gitlab
-  ports:
-   - "80:80"
-  environment:
-   - GITLAB_ROOT_PASSWORD=QWer1234!
-   - GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN=gitlabrunners
-   - GITLAB_HOST=http://devbox
-   - VIRTUAL_HOST=devbox
- runner1:
-  restart: always
-  image: gitlab/gitlab-runner
-  environment:
-    - REGISTRATION_TOKEN=gitlabrunners
-    - RUNNER_NAME=runner1
-    - RUNNER_EXECUTOR=docker
-    - CI_SERVER_URL=http://devbox
-    - CLONE_URL=http://devbox
-    - REGISTER_NON_INTERACTIVE=true
-    - DOCKER_IMAGE=alpine
-    - DOCKER_EXTRA_HOSTS=devbox:192.168.0.21
-    - DOCKER_PULL_POLICY=if-not-present
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-  extra_hosts:
-    - "devbox:192.168.0.148"
- volumes:
+  gitlab:
+    restart: always
+    image: gitlab/gitlab-ce
+    hostname: gitlab
+    volumes:
+      - gitlab-config:/etc/gitlab
+      - gitlab-data:/var/opt/gitlab
+    ports:
+      - "80:80"
+    environment:
+      - GITLAB_ROOT_PASSWORD=1234QWer!
+      - GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN=gitlabrunners
+      - GITLAB_HOST=http://devbox
+      - VIRTUAL_HOST=devbox
+  runner1:
+    restart: always
+    image: gitlab/gitlab-runner
+    environment:
+      - REGISTRATION_TOKEN=gitlabrunners
+      - RUNNER_NAME=runner1
+      - RUNNER_EXECUTOR=docker
+      - CI_SERVER_URL=http://devbox
+      - CLONE_URL=http://devbox
+      - REGISTER_NON_INTERACTIVE=true
+      - DOCKER_IMAGE=alpine
+      - DOCKER_EXTRA_HOSTS=devbox:192.168.0.21
+      - DOCKER_PULL_POLICY=if-not-present
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    extra_hosts:
+      - "devbox:192.168.0.21"
+volumes:
   gitlab-config: 
    driver: local 
   gitlab-data: 
