@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-gitlab_host="http://192.168.11.21"
+gitlab_host="http://192.168.11.22"
 gitlab_wait_time=25
 # prints colored text
 success () {
@@ -12,7 +12,10 @@ success () {
 
 echo ""
 printf "Launching Gitlab CE..."
-docker-compose up -d 2> gitlab_setup.log
+# Ubuntu
+# docker-compose up -d 2> gitlab_setup.log
+# CentOS
+docker compose up -d 2> gitlab_setup.log
 success
 
 printf "Waiting for Gitlab CE to become available..."
