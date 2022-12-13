@@ -1,0 +1,75 @@
+lab:
+  description: ''
+  notes: ''
+  timestamp: 1618268897.2917004
+  title: Docker-Lab
+  version: 0.0.4
+nodes:
+  - id: n0
+    label: ext-mgmt
+    node_definition: external_connector
+    x: -750
+    y: -50
+    configuration: bridge0
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port
+        type: physical
+  - id: n1
+    label: devbox
+    node_definition: ubuntu
+    x: -550
+    y: -50
+    configuration: |-
+      #cloud-config
+      password: cisco
+      chpasswd: { expire: False }
+      hostname: devbox
+      ssh_pwauth: True
+      ssh_authorized_keys:
+        - your-ssh-pubkey-line-goes-here
+      users:
+        - default
+        - name: developer
+          groups: docker
+          plain_text_passwd: devnet
+          lock_passwd: false
+          shell: /bin/bash
+          gecos: Developer User
+      write_files:
+        - path: /etc/netplan/50-cloud-init.yaml
+          content: |
+            network:
+              ethernets:
+                ens2:
+                  match:
+                    name: ens2
+                  addresses:
+                    - <YOUR IP ADDR>/<YOUR SUBNET MASK>
+                  set-name: ens2
+                  gateway4: <YOUR IP GW>
+                  nameservers:
+                    addresses: [<YOUR DNS IP>]
+              version: 2
+      runcmd:
+        - [netplan, apply]
+        - [apt, update]
+        - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree, jq]
+        - [apt-get, install, -y, --only-upgrade, git]
+    image_definition: ubuntu-20-04-20210224
+    ram: 8192
+    cpus: 4
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: ens2
+        type: physical
+links:
+  - id: l0
+    i1: i0
+    n1: n0
+    i2: i0
+    n2: n1
