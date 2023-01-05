@@ -4,7 +4,7 @@ Here you will find all files used during DevNet Expert blog series about Docker 
 
 ## Files and Folders
 
-- **part1-files:** Contains all files used during DevNet Expert series - Docker part 1.
+- **part1-files:** Contains all files used during [DevNet Expert series - Docker part 1](https://blog.kuhlcloud.de/containers/2022/12/16/docker-part1.html).
 
 - **part2-files:** Contains all files used during DevNet Expert series - Docker part 2.
 
